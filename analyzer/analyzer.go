@@ -1,12 +1,18 @@
 package analyzer
 
 import (
-	"fmt"
-	"regexp"
 	"runtime"
+	"strconv"
 )
 
-func Analyze() {
+func Analyze() (goroutineCount int, message []string) {
+	// そもそもgoroutineが1つ(main関数だけ)なら早期returnさせる
+	goroutineCount = runtime.NumGoroutine()
+	if goroutineCount == 1 {
+		message = append(message, "\n🟢OK\n", "No living goroutines except main goroutine")
+		return
+	}
+
 	bufLen := 2048
 
 	// 見切れてる
@@ -22,29 +28,14 @@ func Analyze() {
 	 */
 	n := runtime.Stack(buf, true)
 
-	regex := regexp.MustCompile(`goroutine \d+ \[.*\]:\n`)
-
-	// mainのgoroutineが存在するため最低1はある→nil判定は不要
-	matches := regex.FindAllStringIndex(string(buf[:n]), -1)
-	goroutineCount := len(matches)
-
 	// fmt.Printf("%s\n", buf[:n])
 	if goroutineCount == 0 {
 		panic("ParseError")
 	}
 
-	if goroutineCount == 1 {
-		fmt.Println("\n🟢OK\n")
-		fmt.Println("No living goroutines except main goroutine")
-	} else {
-		fmt.Println("\n❌NG\n")
-		fmt.Printf("Number of remaining goroutines excluding the main goroutine: %d ", goroutineCount-1)
-		if n == bufLen {
-			fmt.Println("and more")
-		} else {
-			// 改行調整用
-			fmt.Println("")
-		}
+	message = append(message, "\n❌NG\n", "Number of remaining goroutines excluding the main goroutine: "+strconv.Itoa(goroutineCount-1))
+	if n == bufLen {
+		message = append(message, "and more")
 	}
 	return
 }
