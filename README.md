@@ -1,11 +1,35 @@
 # 🔥nogolivi (残り火)🔥
+[![Go Reference](https://pkg.go.dev/badge/github.com/usuyuki/nogolivi.svg)](https://pkg.go.dev/github.com/usuyuki/nogolivi)
+
+Incomplete goroutine visualization library for beginners  
+(初学者向けの未完了 goroutine 可視化ライブラリ)
+
+
+<img width="300" alt="SCR-20230502-nedr" src="logo.png">
 
 > 残り火は適切に消火して、 **no "go" livi**ng へ。
 
-A tool for visualizing goroutines that are not terminated when the main function terminates.
+## 概要
+A library that easily completes the visualization of goroutines that are not terminated when the main function terminates.  
+You can visualize unterminated goroutines by adding just two lines to your existing main function.
 
-main 関数終了時に終了していない goroutine の可視化を行うツールです。
-<img src="logo.png">
+main 関数終了時に終了していない goroutine の可視化を簡単完結に行うライブラリです。  
+既存の main 関数に 2 行追加するだけで終了していない goroutine を可視化できます。
+
+```go
+package main
+
+import (
+	"github.com/usuyuki/nogolivi" // add
+)
+
+func main() {
+	defer nogolivi.Trace() // add
+
+	// your code here
+}
+
+```
 
 ## Attention
 
@@ -42,7 +66,7 @@ created by main.main in goroutine 1
 	/tmp/sandbox910302531/prog.go:25 +0x6a
 ```
 
-https://go.dev/play/p/qSWvUEPKzrq?v=gotip
+https://go.dev/play/p/kh76htbRETg?v=gotip
 
 go 1.21 で goroutine を作成した goroutine の id が分かることで、どこでどの用に途中で止まっているかをより分かりやすく可視化できるのでは？
 
@@ -59,21 +83,6 @@ main 関数で defer によって呼び出すことで、main 関数終了時に
 - go tool trace にあるような高度な状態の確認
 
 ## Usage
-
-```go
-package main
-
-import (
-	"github.com/usuyuki/nogolivi" // add
-)
-
-func main() {
-	defer nogolivi.Trace() // add
-
-	// your code
-}
-
-```
 
 ## example
 
