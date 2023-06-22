@@ -1,0 +1,2 @@
+# nogoribi
+main関数終了時に終了していないgoroutineの可視化を行うツール
