@@ -19,5 +19,7 @@ func Trace() {
 	fmt.Println("=== Check Started ===")
 	analyzer.Analyze()
 
+	// goroutineが1、つまりmainしか残ってない場合はOKだけど、2つ以上ある場合はgoroutineの詳細を出す
+
 	fmt.Println("=== Check End ===")
 }

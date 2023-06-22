@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"sync"
 	"sync/atomic"
+	"time"
 
 	"github.com/usuyuki/nogolivi"
 )
@@ -16,6 +17,7 @@ func main() {
 
 	for i := 1; i <= 100; i++ {
 		go func(num int) {
+			time.Sleep(1 * time.Second)
 			atomic.AddInt64(&sum, int64(num))
 		}(i)
 	}
