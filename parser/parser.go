@@ -1,5 +1,6 @@
 package parser
 
-func Parse() {
+func Parse(trace string) (goroutineStatuses []GoroutineStatus) {
 	// スタックトレースをパースする
+	return
 }

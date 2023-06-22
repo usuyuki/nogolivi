@@ -2,8 +2,11 @@ package nogolivi
 
 import (
 	"fmt"
+	"runtime"
+	"strconv"
 
-	"github.com/usuyuki/nogolivi/analyzer"
+	"github.com/usuyuki/nogolivi/getter"
+	"github.com/usuyuki/nogolivi/parser"
 )
 
 func Trace() {
@@ -18,8 +21,30 @@ func Trace() {
 
 	fmt.Println("\n=== Check Started ===")
 
-	// 解析
-	goroutineCount, message := analyzer.Analyze()
+	var message []string
+	goroutineCount := runtime.NumGoroutine()
+
+	if goroutineCount == 1 {
+		message = append(message, "\n🟢OK\n", "No living goroutines except main goroutine")
+		// goroutineの残りがない場合はruntime.Stackなどを呼び出さず終える
+	} else {
+
+		message = append(message, "\n❌NG\n", "Number of remaining goroutines excluding the main goroutine: "+strconv.Itoa(goroutineCount-1))
+
+		// スタックトレースの取得 文字列を返す
+		trace, isFull := getter.GetTrace()
+
+		// スタックトレースのパース 解析結果を返す
+		parseResult := parser.Parse(trace)
+		fmt.Println(parseResult)
+
+		// スタックトレースの表示 printする
+
+		// 結果の判定
+		if isFull {
+			message = append(message, "and more")
+		}
+	}
 
 	// 結果表示
 	fmt.Println("Number of remaining goroutines: ", goroutineCount)

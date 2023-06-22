@@ -1,17 +1,12 @@
-package analyzer
+package getter
 
 import (
+	"fmt"
 	"runtime"
-	"strconv"
 )
 
-func Analyze() (goroutineCount int, message []string) {
+func GetTrace() (trace string, isFull bool) {
 	// そもそもgoroutineが1つ(main関数だけ)なら早期returnさせる
-	goroutineCount = runtime.NumGoroutine()
-	if goroutineCount == 1 {
-		message = append(message, "\n🟢OK\n", "No living goroutines except main goroutine")
-		return
-	}
 
 	bufLen := 2048
 
@@ -28,14 +23,10 @@ func Analyze() (goroutineCount int, message []string) {
 	 */
 	n := runtime.Stack(buf, true)
 
-	// fmt.Printf("%s\n", buf[:n])
-	if goroutineCount == 0 {
-		panic("ParseError")
-	}
+	fmt.Printf("%s\n", buf[:n])
 
-	message = append(message, "\n❌NG\n", "Number of remaining goroutines excluding the main goroutine: "+strconv.Itoa(goroutineCount-1))
 	if n == bufLen {
-		message = append(message, "and more")
+		isFull = true
 	}
 	return
 }

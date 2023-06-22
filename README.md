@@ -1,15 +1,16 @@
 # 🔥nogolivi (残り火)🔥
+
 [![Go Reference](https://pkg.go.dev/badge/github.com/usuyuki/nogolivi.svg)](https://pkg.go.dev/github.com/usuyuki/nogolivi)
 
 Incomplete goroutine visualization library for beginners  
 (初学者向けの未完了 goroutine 可視化ライブラリ)
-
 
 <img width="300" alt="SCR-20230502-nedr" src="logo.png">
 
 > 残り火は適切に消火して、 **no "go" livi**ng へ。
 
 ## 概要
+
 A library that easily completes the visualization of goroutines that are not terminated when the main function terminates.  
 You can visualize unterminated goroutines by adding just two lines to your existing main function.
 
@@ -91,7 +92,7 @@ main 関数で defer によって呼び出すことで、main 関数終了時に
 When there is some goroutines in the middle of execution when the main function is executed.
 
 ```shell
-go run example/go_living.go
+go run examples/go_living.go
 ```
 
 ### example 2
@@ -99,5 +100,5 @@ go run example/go_living.go
 When there is no goroutine in the middle of execution when the main function is executed.
 
 ```shell
-go run example/no_go_living.go
+go run examples/no_go_living.go
 ```
