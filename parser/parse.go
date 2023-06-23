@@ -3,10 +3,12 @@ package parser
 import (
 	"strings"
 	"sync"
+
+	"github.com/usuyuki/nogolivi/traceStruct"
 )
 
 // スタックトレースをパースする
-func Parse(data string) (goroutineStatuses []GoroutineStatus) {
+func Parse(data string) (goroutineStatuses []traceStruct.GoroutineStatus) {
 	// goroutineごとに2つ改行があるのでそれを切れ目として判断
 
 	// fmt.Println(data)
@@ -36,8 +38,8 @@ func Parse(data string) (goroutineStatuses []GoroutineStatus) {
 			// 1行目の処理(goroutineIDとStatusが取れる)
 			id, status := parseIdStatus(lines[0])
 
-			var parentGoroutine ParentGoroutine
-			var stackTraces []StackTrace
+			var parentGoroutine traceStruct.ParentGoroutine
+			var stackTraces []traceStruct.StackTrace
 
 			// rootのgoroutineは親情報がないのでその分岐
 			// 2行目~後ろから3行目までの処理(スタックトレースが取れる)
@@ -51,7 +53,7 @@ func Parse(data string) (goroutineStatuses []GoroutineStatus) {
 
 			mu.Lock()
 			goroutineStatuses = append(goroutineStatuses,
-				GoroutineStatus{
+				traceStruct.GoroutineStatus{
 					Id:         id,
 					Status:     status,
 					Parent:     parentGoroutine,

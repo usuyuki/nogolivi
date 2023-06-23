@@ -1,5 +1,5 @@
 test:
-	go test -shuffle=on -v -p=1 ./...
+	go test -shuffle=on -p=1 ./...
 ex1:
 	go run _examples/go_living.go
 ex2:

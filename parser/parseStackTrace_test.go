@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/usuyuki/nogolivi/traceStruct"
 )
 
 func TestParseStackTrace1(t *testing.T) {
@@ -14,7 +15,7 @@ func TestParseStackTrace1(t *testing.T) {
 		"        /home/user/source_code/nogolivi/examples/go_living.go:19 +0x26",
 	}
 	stackTraces := parseStackTrace(data)
-	assert.Exactly(t, []StackTrace{
+	assert.Exactly(t, []traceStruct.StackTrace{
 		{
 			FunctionName: "time.Sleep(0x3b9aca00)",
 			FileName:     "/home/user/.asdf/installs/golang/1.21rc2/go/src/runtime/time.go",
@@ -38,7 +39,7 @@ func TestParseStackTrace2(t *testing.T) {
 		"        /home/user/source_code/nogolivi/_examples/go_living.go:26 +0x14f",
 	}
 	stackTraces := parseStackTrace(data)
-	assert.Exactly(t, []StackTrace{
+	assert.Exactly(t, []traceStruct.StackTrace{
 		{
 			FunctionName: "github.com/usuyuki/nogolivi/getter.GetTrace()",
 			FileName:     "/home/user/source_code/nogolivi/getter/getTrace.go",

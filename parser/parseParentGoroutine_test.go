@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/usuyuki/nogolivi/traceStruct"
 )
 
 func TestParentGoroutineSuccess(t *testing.T) {
@@ -12,7 +13,7 @@ func TestParentGoroutineSuccess(t *testing.T) {
 		"        /home/user/source_code/nogolivi/examples/go_living.go:18 +0x59",
 	}
 	parentGoroutine := parseParentGoroutine(data)
-	assert.Exactly(t, ParentGoroutine{
+	assert.Exactly(t, traceStruct.ParentGoroutine{
 		FunctionName: "main.main",
 		Id:           1,
 		FileName:     "/home/user/source_code/nogolivi/examples/go_living.go",

@@ -5,10 +5,10 @@ import (
 	"os"
 
 	pt "github.com/bayashi/go-proptree"
-	"github.com/usuyuki/nogolivi/parser"
+	"github.com/usuyuki/nogolivi/traceStruct"
 )
 
-func ShowTree(parseResult []parser.GoroutineStatus) {
+func ShowTree(parseResult []traceStruct.GoroutineStatus) {
 	tree := pt.Node("Main Goroutine").Icon("*").Tag("1")
 
 	// ツリーの各要素を追加

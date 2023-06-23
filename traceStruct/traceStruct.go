@@ -1,4 +1,4 @@
-package parser
+package traceStruct
 
 // goroutineごとにこの構造体を持つ
 type GoroutineStatus struct {

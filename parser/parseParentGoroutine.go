@@ -3,10 +3,12 @@ package parser
 import (
 	"regexp"
 	"strconv"
+
+	"github.com/usuyuki/nogolivi/traceStruct"
 )
 
 // 親goroutine情報のパース
-func parseParentGoroutine(parentLine []string) (parent ParentGoroutine) {
+func parseParentGoroutine(parentLine []string) (parent traceStruct.ParentGoroutine) {
 	if len(parentLine) != 2 {
 		panic("ParseParent failed. Parent goroutine info is not 2 lines")
 	}
@@ -30,7 +32,7 @@ func parseParentGoroutine(parentLine []string) (parent ParentGoroutine) {
 	fileName := match2[1]
 	lineNumber, _ := strconv.Atoi(match2[2])
 
-	parent = ParentGoroutine{
+	parent = traceStruct.ParentGoroutine{
 		FunctionName: functionName,
 		Id:           goroutineID,
 		FileName:     fileName,

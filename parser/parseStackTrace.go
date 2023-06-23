@@ -3,10 +3,12 @@ package parser
 import (
 	"regexp"
 	"strconv"
+
+	"github.com/usuyuki/nogolivi/traceStruct"
 )
 
 // スタックトレースのパース
-func parseStackTrace(trace []string) (stackTraces []StackTrace) {
+func parseStackTrace(trace []string) (stackTraces []traceStruct.StackTrace) {
 	// 配列の長さが2の倍数でない場合はpanic
 	if len(trace)%2 != 0 {
 		panic("ParseStackTrace failed. Trace length is not even")
@@ -30,7 +32,7 @@ func parseStackTrace(trace []string) (stackTraces []StackTrace) {
 		lineNumber, _ := strconv.Atoi(match2[2])
 
 		stackTraces = append(stackTraces,
-			StackTrace{
+			traceStruct.StackTrace{
 				FunctionName: functionName,
 				FileName:     fileName,
 				LineNumber:   lineNumber,
