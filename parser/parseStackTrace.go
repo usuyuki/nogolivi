@@ -19,7 +19,8 @@ func parseStackTrace(trace []string) (stackTraces []StackTrace) {
 
 		// 2行目の処理(ファイル名と行数が取れる)
 		//         /home/user/source_code/nogolivi/examples/go_living.go:19 +0x26 のような文字列をパースする
-		re2 := regexp.MustCompile(`^\s*(.+):(\d+)\s`)
+		// .goだけでなくruntime/asm_amd64.s:1650のようなパターンも有る
+		re2 := regexp.MustCompile(`([^:\s]+):(\d+)`)
 		match2 := re2.FindStringSubmatch(trace[i+1])
 
 		if len(match2) != 3 {
