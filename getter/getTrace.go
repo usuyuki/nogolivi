@@ -5,7 +5,7 @@ import (
 )
 
 func GetTrace() (trace string, isFull bool) {
-	bufLen := 2048
+	bufLen := 8192
 	buf := make([]byte, bufLen)
 
 	/**

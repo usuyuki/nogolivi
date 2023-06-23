@@ -32,7 +32,7 @@ func Trace() {
 		message = append(message, "\n🟢OK\n", "No living goroutines except main goroutine")
 		// goroutineの残りがない場合はruntime.Stackなどを呼び出さず終える
 		// 結果の表示
-		viewer.ShowNg(goroutineCount-1, message)
+		viewer.ShowResult(message)
 	} else {
 		/*
 			goroutineがmain goroutine以外もある場合
@@ -42,18 +42,17 @@ func Trace() {
 		// スタックトレースの取得 文字列を返す
 		trace, isFull := getter.GetTrace()
 
+		if isFull {
+			message = append(message, "and more")
+		}
+
 		// スタックトレースのパース 解析結果を返す
 		parseResult := parser.Parse(trace)
 
 		// 結果の表示
-		viewer.ShowNg(goroutineCount-1, message)
+		viewer.ShowResult(message)
 		// スタックトレースの表示
 		viewer.ShowTree(parseResult)
-
-		// 結果の判定
-		if isFull {
-			message = append(message, "and more")
-		}
 	}
 
 	// 結果表示

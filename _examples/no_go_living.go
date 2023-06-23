@@ -14,7 +14,7 @@ func main() {
 	var sum int64
 	var wg sync.WaitGroup
 
-	for i := 1; i <= 100; i++ {
+	for i := 1; i <= 5; i++ {
 		wg.Add(1)
 		go func(num int) {
 			atomic.AddInt64(&sum, int64(num))

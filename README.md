@@ -117,38 +117,132 @@ go run _examples/go_living.go
 Sum: 0
 
 === 🔥 Nogolivi Check Started 🔥 ===
-Number of remaining goroutines:  100
 
 ❌NG
 
-Number of remaining goroutines excluding the main goroutine: 100
+Number of remaining goroutines excluding the main goroutine: 5
 
 ┌* Main Goroutine: 1
-├─┬ Goroutine 10: sleep
-│ ├── time.Sleep(0x3b9aca00) (/home/user/.asdf/installs/golang/1.21rc2/go/src/runtime/time.go:195)
-│ ├── main.main.func1(0x5) (/home/user/source_code/nogolivi/_examples/go_living.go:19)
-│ └── Parent: main.main (/home/user/source_code/nogolivi/_examples/go_living.go:18)
-├─┬ Goroutine 9: sleep
-│ ├── time.Sleep(0x3b9aca00) (/home/user/.asdf/installs/golang/1.21rc2/go/src/runtime/time.go:195)
-│ ├── main.main.func1(0x4) (/home/user/source_code/nogolivi/_examples/go_living.go:19)
-│ └── Parent: main.main (/home/user/source_code/nogolivi/_examples/go_living.go:18)
-├─┬ Goroutine 8: sleep
-│ ├── time.Sleep(0x3b9aca00) (/home/user/.asdf/installs/golang/1.21rc2/go/src/runtime/time.go:195)
-│ ├── main.main.func1(0x3) (/home/user/source_code/nogolivi/_examples/go_living.go:19)
-│ └── Parent: main.main (/home/user/source_code/nogolivi/_examples/go_living.go:18)
-├─┬ Goroutine 6: sleep
-│ ├── time.Sleep(0x3b9aca00) (/home/user/.asdf/installs/golang/1.21rc2/go/src/runtime/time.go:195)
-│ ├── main.main.func1(0x1) (/home/user/source_code/nogolivi/_examples/go_living.go:19)
-│ └── Parent: main.main (/home/user/source_code/nogolivi/_examples/go_living.go:18)
-└─┬ Goroutine 7: sleep
-  ├── time.Sleep(0x3b9aca00) (/home/user/.asdf/installs/golang/1.21rc2/go/src/runtime/time.go:195)
-  ├── main.main.func1(0x2) (/home/user/source_code/nogolivi/_examples/go_living.go:19)
-  └── Parent: main.main (/home/user/source_code/nogolivi/_examples/go_living.go:18)
+├─┬ Goroutine 21: runnable
+│ ├── main.main.func2() (/home/naofumi/source_code/nogolivi/_examples/go_living.go:18)
+│ ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+│ └── Parent: main.main (/home/naofumi/source_code/nogolivi/_examples/go_living.go:18)
+├─┬ Goroutine 20: runnable
+│ ├── main.main.func2() (/home/naofumi/source_code/nogolivi/_examples/go_living.go:18)
+│ ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+│ └── Parent: main.main (/home/naofumi/source_code/nogolivi/_examples/go_living.go:18)
+└─┬ Goroutine 18: runnable
+  ├── main.main.func2() (/home/naofumi/source_code/nogolivi/_examples/go_living.go:18)
+  ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+  └── Parent: main.main (/home/naofumi/source_code/nogolivi/_examples/go_living.go:18)
 
 ===  🔥  Nogolivi Check End   🔥 ===
 ```
 
 ### example 2
+
+When there is a recursive goroutine in the middle of executing the main function.
+
+```shell
+go run _examples/go_living_recursively.go
+
+or
+
+make ex2
+```
+
+```
+go run _examples/go_living_recursively.go
+
+Sum: 0
+
+=== 🔥 Nogolivi Check Started 🔥 ===
+
+❌NG
+
+Number of remaining goroutines excluding the main goroutine: 5
+and more
+
+┌* Main Goroutine: 1
+├─┬ Goroutine 35: runnable
+│ ├── main.main.func1.2() (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+│ ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+│ └── Parent: main.main.func1 (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+
+├─┬ Goroutine 23: runnable
+│ ├── main.main.func1.2() (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+│ ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+│ └── Parent: main.main.func1 (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+├─┬ Goroutine 24: runnable
+│ ├── main.main.func1.2() (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+│ ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+│ └── Parent: main.main.func1 (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+├─┬ Goroutine 25: runnable
+│ ├── main.main.func1.2() (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+│ ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+│ └── Parent: main.main.func1 (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+├─┬ Goroutine 26: runnable
+│ ├── main.main.func1.2() (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+│ ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+│ └── Parent: main.main.func1 (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+├─┬ Goroutine 22: runnable
+│ ├── main.main.func1.2() (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+│ ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+│ └── Parent: main.main.func1 (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+├─┬ Goroutine 27: runnable
+│ ├── main.main.func1.2() (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+│ ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+│ └── Parent: main.main.func1 (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+├─┬ Goroutine 19: runnable
+│ ├── main.main.func1.2() (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+│ ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+│ └── Parent: main.main.func1 (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+├─┬ Goroutine 32: runnable
+│ ├── main.main.func1.2() (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+│ ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+│ └── Parent: main.main.func1 (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+
+├─┬ Goroutine 31: runnable
+│ ├── main.main.func1.2() (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+│ ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+│ └── Parent: main.main.func1 (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+├─┬ Goroutine 18: runnable
+│ ├── main.main.func1.2() (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+
+│ ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+│ └── Parent: main.main.func1 (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+├─┬ Goroutine 21: runnable
+│ ├── main.main.func1.2() (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+│ ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+│ └── Parent: main.main.func1 (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+├─┬ Goroutine 33: runnable
+│ ├── main.main.func1.2() (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+│ ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+│ └── Parent: main.main.func1 (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+├─┬ Goroutine 20: runnable
+│ ├── main.main.func1.2() (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+│ ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+│ └── Parent: main.main.func1 (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+├─┬ Goroutine 30: runnable
+│ ├── main.main.func1.2() (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+│ ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+
+│ └── Parent: main.main.func1 (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+├─┬ Goroutine 10: runnable
+
+│ ├── main.main.func2() (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:18)
+│ ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+│ └── Parent: main.main (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:18)
+└─┬ Goroutine 17: runnable
+  ├── main.main.func1.2() (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+  ├── runtime.goexit() (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/asm_amd64.s:1650)
+  └── Parent: main.main.func1 (/home/naofumi/source_code/nogolivi/_examples/go_living_recursively.go:20)
+
+
+===  🔥  Nogolivi Check End   🔥 ===
+```
+
+### example 3
 
 When there is no goroutine in the middle of execution when the main function is executed.
 
@@ -157,21 +251,18 @@ go run _examples/no_go_living.go
 
 or
 
-make ex2
+make ex3
 ```
 
-go run \_examples/no_go_living.go
-Sum: 5050
+```
+Sum: 15
 
 === 🔥 Nogolivi Check Started 🔥 ===
-Number of remaining goroutines: 0
 
 🟢OK
 
 No living goroutines except main goroutine
 
-=== 🔥 Nogolivi Check End 🔥 ===
-
-```
+===  🔥  Nogolivi Check End   🔥 ===
 
 ```
