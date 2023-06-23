@@ -1,9 +1,7 @@
 # 🔥nogolivi (残り火)🔥
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/usuyuki/nogolivi.svg)](https://pkg.go.dev/github.com/usuyuki/nogolivi)
-
-Incomplete goroutine visualization library for beginners  
-(初学者向けの未完了 goroutine 可視化ライブラリ)
+> **Warning**
+> このライブラリは Go1.21RC2~で動作します。 2023 年 6 月現在最新のメジャーバージョンである Go1.20 は動作対象外です。
 
 <img width="300" alt="SCR-20230502-nedr" src="logo.png">
 
@@ -292,7 +290,7 @@ Number of remaining goroutines excluding the main goroutine: 5
 ===  🔥  Nogolivi Check End   🔥 ===
 ```
 
-panic が起きたところで止まってしまう上に panic がハンドリングできていないが、これは別のgoroutineなのでハンドリングできない状態が正常
+panic が起きたところで止まってしまう上に panic がハンドリングできていないが、これは別の goroutine なのでハンドリングできない状態が正常
 
 ### example 5
 
