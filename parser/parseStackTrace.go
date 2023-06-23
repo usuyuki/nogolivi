@@ -14,15 +14,8 @@ func parseStackTrace(trace []string) (stackTraces []StackTrace) {
 
 	// 2行ずつでループ
 	for i := 0; i < len(trace); i += 2 {
-		// 1行目の処理(関数が取れる)
-		// main.main.func1(0x2)のような文字列をパースする
-		re1 := regexp.MustCompile(`(.+)\((.+)\)`)
-		match1 := re1.FindStringSubmatch(trace[i])
-
-		if len(match1) != 3 {
-			panic("ParseStackTrace failed. Cannot parse functionName")
-		}
-		functionName := match1[1]
+		// 1行目の処理(関数が取れる) ここはそのままでOK
+		functionName := trace[i]
 
 		// 2行目の処理(ファイル名と行数が取れる)
 		//         /home/user/source_code/nogolivi/examples/go_living.go:19 +0x26 のような文字列をパースする

@@ -19,7 +19,7 @@ func Trace() {
 		}
 	}()
 
-	fmt.Println("\n=== Check Started ===")
+	fmt.Println("\n=== 🔥 Check Started 🔥 ===")
 
 	var message []string
 	goroutineCount := runtime.NumGoroutine()
@@ -57,5 +57,5 @@ func Trace() {
 		fmt.Println(value)
 	}
 
-	fmt.Println("\n===   Check End   ===")
+	fmt.Println("\n===  🔥  Check End   🔥 ===")
 }

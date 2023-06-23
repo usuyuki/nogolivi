@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"fmt"
 	"strings"
 	"sync"
 )
@@ -9,6 +10,7 @@ import (
 func Parse(data string) (goroutineStatuses []GoroutineStatus) {
 	// goroutineごとに2つ改行があるのでそれを切れ目として判断
 
+	// fmt.Println(data)
 	goroutines := strings.Split(data, "\n\n")
 	numGoroutines := len(goroutines)
 
@@ -38,11 +40,16 @@ func Parse(data string) (goroutineStatuses []GoroutineStatus) {
 			var parentGoroutine ParentGoroutine
 			var stackTraces []StackTrace
 
+			// rootのgoroutineは親情報がないのでその分岐
+			// 2行目~後ろから3行目までの処理(スタックトレースが取れる)
+			mu.Lock()
+			fmt.Println(data)
+			fmt.Println(id)
+			stackTraces = parseStackTrace(lines[1 : numLength-2])
+			mu.Unlock()
+
 			// goroutine1はmain goroutineなので親goroutineの情報が含まれないのでスキップ
 			if id != 1 {
-				// 2行目~後ろから3行目までの処理(スタックトレースが取れる)
-				stackTraces = parseStackTrace(lines[1 : numLength-2])
-
 				// 後ろ2行目までの処理(スタックトレースが取れる)
 				parentGoroutine = parseParentGoroutine(lines[numLength-2 : numLength])
 			}
