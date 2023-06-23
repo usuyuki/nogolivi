@@ -1,9 +1,11 @@
-# 🔥nogolivi (残り火)🔥
 
 > **Warning**
 > 
 > このライブラリは Go1.21RC2~で動作します。  
 > 2023 年 6 月現在最新のメジャーバージョンである Go1.20 は動作対象外です。
+
+# 🔥nogolivi (残り火)🔥
+
 
 <img width="300" alt="SCR-20230502-nedr" src="logo.png">
 
@@ -38,7 +40,7 @@ Go 1.21 の runtime.Stack の仕様変更に依存しているため、現在は
 
 ### 詳細
 
-Go 1.21 から runtime.Stack においてスタック トレース内の各 goroutine を作成した goroutine の ID が含まれるようになったことを利用.
+Go 1.21 から runtime.Stack においてスタック トレース内の各 goroutine を作成した goroutine の ID が含まれるようになったことを利用しています。
 
 https://tip.golang.org/doc/go1.21#runtime
 
@@ -69,7 +71,6 @@ created by main.main in goroutine 1
 
 https://go.dev/play/p/kh76htbRETg?v=gotip
 
-go 1.21 で goroutine を作成した goroutine の id が分かることで、どこでどの用に途中で止まっているかをより分かりやすく可視化できるのでは？
 
 ## 機能
 
@@ -292,7 +293,7 @@ Number of remaining goroutines excluding the main goroutine: 5
 ===  🔥  Nogolivi Check End   🔥 ===
 ```
 
-panic が起きたところで止まってしまう上に panic がハンドリングできていないが、これは別の goroutine なのでハンドリングできない状態が正常
+panic が起きたところで止まってしまう上に panic がハンドリングできていないが、これは別の goroutine なのでハンドリングできない状態で正常
 
 ### example 5
 
