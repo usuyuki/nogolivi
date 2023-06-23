@@ -83,6 +83,11 @@ main 関数で defer によって呼び出すことで、main 関数終了時に
 
 - go tool trace にあるような高度な状態の確認
 
+## Test
+
+- unit テスト : internal な関数にするために同じ名前空間に配置
+- integration テスト :
+
 ## Usage
 
 ## example
@@ -92,7 +97,7 @@ main 関数で defer によって呼び出すことで、main 関数終了時に
 When there is some goroutines in the middle of execution when the main function is executed.
 
 ```shell
-go run examples/go_living.go
+go run _examples/go_living.go
 ```
 
 ### example 2
@@ -100,5 +105,5 @@ go run examples/go_living.go
 When there is no goroutine in the middle of execution when the main function is executed.
 
 ```shell
-go run examples/no_go_living.go
+go run _examples/no_go_living.go
 ```
