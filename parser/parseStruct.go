@@ -3,24 +3,35 @@ package parser
 // goroutineごとにこの構造体を持つ
 type GoroutineStatus struct {
 	// goroutineのID
-	id int
+	Id int
 	// goroutineの状態( running, runnable, waiting, dead)
 	// @todo ここ列挙型にしたい
-	status string
-	// 親のgoroutineのID
-	parentId int
+	Status string
+	// 親のgoroutineの情報
+	Parent ParentGoroutine
 	// goroutineのスタックトレース
-	stackTrace []stackTrace
+	StackTrace []StackTrace
 }
 
 // スタックトレースの1つずつにこの構造体を持つ
-type stackTrace struct {
+type StackTrace struct {
 	// 関数名
-	functionName string
+	FunctionName string
 	// ファイル名
-	fileName string
+	FileName string
 	// 行数
-	lineNumber int
+	LineNumber int
+}
+
+type ParentGoroutine struct {
+	// goroutineのID
+	Id int
+	// 関数名
+	FunctionName string
+	// ファイル名
+	FileName string
+	// 行数
+	LineNumber int
 }
 
 /*

@@ -25,10 +25,15 @@ func Trace() {
 	goroutineCount := runtime.NumGoroutine()
 
 	if goroutineCount == 1 {
+		/*
+			goroutineがmain goroutineのみの場合
+		*/
 		message = append(message, "\n🟢OK\n", "No living goroutines except main goroutine")
 		// goroutineの残りがない場合はruntime.Stackなどを呼び出さず終える
 	} else {
-
+		/*
+			goroutineがmain goroutine以外もある場合
+		*/
 		message = append(message, "\n❌NG\n", "Number of remaining goroutines excluding the main goroutine: "+strconv.Itoa(goroutineCount-1))
 
 		// スタックトレースの取得 文字列を返す
@@ -36,7 +41,7 @@ func Trace() {
 
 		// スタックトレースのパース 解析結果を返す
 		parseResult := parser.Parse(trace)
-		fmt.Println(parseResult)
+		fmt.Println("ParseResult", parseResult)
 
 		// スタックトレースの表示 printする
 
