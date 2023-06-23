@@ -1,4 +1,0 @@
-package viewer
-
-func ShowParentChildRelationShip() {
-}

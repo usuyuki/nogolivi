@@ -7,6 +7,7 @@ import (
 
 	"github.com/usuyuki/nogolivi/getter"
 	"github.com/usuyuki/nogolivi/parser"
+	"github.com/usuyuki/nogolivi/viewer"
 )
 
 func Trace() {
@@ -19,7 +20,7 @@ func Trace() {
 		}
 	}()
 
-	fmt.Println("\n=== 🔥 Check Started 🔥 ===")
+	fmt.Println("\n=== 🔥 Nogolivi Check Started 🔥 ===")
 
 	var message []string
 	goroutineCount := runtime.NumGoroutine()
@@ -30,6 +31,8 @@ func Trace() {
 		*/
 		message = append(message, "\n🟢OK\n", "No living goroutines except main goroutine")
 		// goroutineの残りがない場合はruntime.Stackなどを呼び出さず終える
+		// 結果の表示
+		viewer.ShowNg(goroutineCount-1, message)
 	} else {
 		/*
 			goroutineがmain goroutine以外もある場合
@@ -42,8 +45,10 @@ func Trace() {
 		// スタックトレースのパース 解析結果を返す
 		parseResult := parser.Parse(trace)
 
-		// スタックトレースの表示 printする
-		fmt.Println("ParseResult", parseResult)
+		// 結果の表示
+		viewer.ShowNg(goroutineCount-1, message)
+		// スタックトレースの表示
+		viewer.ShowTree(parseResult)
 
 		// 結果の判定
 		if isFull {
@@ -52,10 +57,6 @@ func Trace() {
 	}
 
 	// 結果表示
-	fmt.Println("Number of remaining goroutines: ", goroutineCount)
-	for _, value := range message {
-		fmt.Println(value)
-	}
 
-	fmt.Println("\n===  🔥  Check End   🔥 ===")
+	fmt.Println("\n===  🔥  Nogolivi Check End   🔥 ===")
 }

@@ -112,6 +112,42 @@ or
 make ex1
 ```
 
+```
+go run _examples/go_living.go
+Sum: 0
+
+=== 🔥 Nogolivi Check Started 🔥 ===
+Number of remaining goroutines:  100
+
+❌NG
+
+Number of remaining goroutines excluding the main goroutine: 100
+
+┌* Main Goroutine: 1
+├─┬ Goroutine 10: sleep
+│ ├── time.Sleep(0x3b9aca00) (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/time.go:195)
+│ ├── main.main.func1(0x5) (/home/naofumi/source_code/nogolivi/_examples/go_living.go:19)
+│ └── Parent: main.main (/home/naofumi/source_code/nogolivi/_examples/go_living.go:18)
+├─┬ Goroutine 9: sleep
+│ ├── time.Sleep(0x3b9aca00) (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/time.go:195)
+│ ├── main.main.func1(0x4) (/home/naofumi/source_code/nogolivi/_examples/go_living.go:19)
+│ └── Parent: main.main (/home/naofumi/source_code/nogolivi/_examples/go_living.go:18)
+├─┬ Goroutine 8: sleep
+│ ├── time.Sleep(0x3b9aca00) (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/time.go:195)
+│ ├── main.main.func1(0x3) (/home/naofumi/source_code/nogolivi/_examples/go_living.go:19)
+│ └── Parent: main.main (/home/naofumi/source_code/nogolivi/_examples/go_living.go:18)
+├─┬ Goroutine 6: sleep
+│ ├── time.Sleep(0x3b9aca00) (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/time.go:195)
+│ ├── main.main.func1(0x1) (/home/naofumi/source_code/nogolivi/_examples/go_living.go:19)
+│ └── Parent: main.main (/home/naofumi/source_code/nogolivi/_examples/go_living.go:18)
+└─┬ Goroutine 7: sleep
+  ├── time.Sleep(0x3b9aca00) (/home/naofumi/.asdf/installs/golang/1.21rc2/go/src/runtime/time.go:195)
+  ├── main.main.func1(0x2) (/home/naofumi/source_code/nogolivi/_examples/go_living.go:19)
+  └── Parent: main.main (/home/naofumi/source_code/nogolivi/_examples/go_living.go:18)
+
+===  🔥  Nogolivi Check End   🔥 ===
+```
+
 ### example 2
 
 When there is no goroutine in the middle of execution when the main function is executed.
@@ -122,4 +158,20 @@ go run _examples/no_go_living.go
 or
 
 make ex2
+```
+
+go run \_examples/no_go_living.go
+Sum: 5050
+
+=== 🔥 Nogolivi Check Started 🔥 ===
+Number of remaining goroutines: 0
+
+🟢OK
+
+No living goroutines except main goroutine
+
+=== 🔥 Nogolivi Check End 🔥 ===
+
+```
+
 ```
