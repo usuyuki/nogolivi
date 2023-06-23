@@ -1,70 +1,54 @@
 package parser
 
 import (
-	"fmt"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-func TestParseRunning(t *testing.T) {
-	data := [2]string{
+func TestParentGoroutineSuccess(t *testing.T) {
+	data := []string{
 		"created by main.main in goroutine 1",
 		"        /home/user/source_code/nogolivi/examples/go_living.go:18 +0x59",
 	}
-	parentGoroutine := parser.parseParentGoroutine(data)
-	if parentGoroutine.Id != 1 {
-		t.Errorf("id is not 1")
-	}
-	if parentGoroutine.FunctionName != "main.main" {
-		t.Errorf("functionName is not main.main")
-	}
-	if parentGoroutine.FileName != "/home/user/source_code/nogolivi/examples/go_living.go" {
-		t.Errorf("fileName is not /home/user/source_code/nogolivi/examples/go_living.go")
-	}
-	if parentGoroutine.LineNumber != 18 {
-		t.Errorf("lineNumber is not 18")
-	}
+	parentGoroutine := parseParentGoroutine(data)
+	assert.Exactly(t, ParentGoroutine{
+		FunctionName: "main.main",
+		Id:           1,
+		FileName:     "/home/user/source_code/nogolivi/examples/go_living.go",
+		LineNumber:   18,
+	}, parentGoroutine)
 }
 
-func TestInvalidStringFirstLine(t *testing.T) {
-	defer func() {
-		err := recover()
-		fmt.Println(err)
-		if err != "parseIdStatus failed. Cannot parse goroutineID and status" {
-			t.Errorf("no proper panic")
-		}
-	}()
-	data := [2]string{
+func TestParentGoroutineInvalidStringFirstLine(t *testing.T) {
+	data := []string{
 		"てきとうな文字列",
 		"        /home/user/source_code/nogolivi/examples/go_living.go:18 +0x59",
 	}
-	parser.parseParentGoroutine(data)
+	assert.Panics(t,
+		func() { parseParentGoroutine(data) },
+		"ParseParent failed. Cannot parse parent goroutine fileName or lineNumber",
+	)
 }
 
-func TestInvalidStringSecondLine(t *testing.T) {
-	defer func() {
-		err := recover()
-		fmt.Println(err)
-		if err != "parseIdStatus failed. Cannot parse goroutineID and status" {
-			t.Errorf("no proper panic")
-		}
-	}()
-	data := [2]string{
+func TestParentGoroutineInvalidStringSecondLine(t *testing.T) {
+	data := []string{
 		"created by main.main in goroutine 1",
 		"てきとうな文字列",
 	}
-	parser.parseParentGoroutine(data)
+	assert.Panics(t,
+		func() { parseParentGoroutine(data) },
+		"ParseParent failed. Cannot parse parent goroutine fileName or lineNumber",
+	)
 }
 
-func TestInvalidLenght(t *testing.T) {
-	defer func() {
-		err := recover()
-		fmt.Println(err)
-		if err != "parseIdStatus failed. Cannot parse goroutineID and status" {
-			t.Errorf("no proper panic")
-		}
-	}()
-	data := [1]string{
-		"created by main.main in goroutine 1",
+func TestParentGoroutineInvalidLenght(t *testing.T) {
+	data := []string{
+		"てきとうな文字列",
 	}
-	parser.parseParentGoroutine(data)
+
+	assert.Panics(t,
+		func() { parseParentGoroutine(data) },
+		"ParseParent failed. Parent goroutine info is not 2 lines ",
+	)
 }

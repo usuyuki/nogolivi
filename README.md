@@ -85,8 +85,16 @@ main 関数で defer によって呼び出すことで、main 関数終了時に
 
 ## Test
 
-- unit テスト : internal な関数にするために同じ名前空間に配置
-- integration テスト :
+単体テスト、結合テストともに対象と同じパッケージにおいています。
+
+```shell
+go test -shuffle=on -v -p=1 ./...
+
+or
+
+make test
+
+```
 
 ## Usage
 
@@ -98,6 +106,10 @@ When there is some goroutines in the middle of execution when the main function 
 
 ```shell
 go run _examples/go_living.go
+
+or
+
+make ex1
 ```
 
 ### example 2
@@ -106,4 +118,8 @@ When there is no goroutine in the middle of execution when the main function is 
 
 ```shell
 go run _examples/no_go_living.go
+
+or
+
+make ex2
 ```
