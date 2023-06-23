@@ -41,9 +41,9 @@ func Trace() {
 
 		// スタックトレースのパース 解析結果を返す
 		parseResult := parser.Parse(trace)
-		fmt.Println("ParseResult", parseResult)
 
 		// スタックトレースの表示 printする
+		fmt.Println("ParseResult", parseResult)
 
 		// 結果の判定
 		if isFull {

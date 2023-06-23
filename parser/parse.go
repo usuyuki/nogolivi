@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"fmt"
 	"strings"
 	"sync"
 )
@@ -42,11 +41,7 @@ func Parse(data string) (goroutineStatuses []GoroutineStatus) {
 
 			// rootのgoroutineは親情報がないのでその分岐
 			// 2行目~後ろから3行目までの処理(スタックトレースが取れる)
-			mu.Lock()
-			fmt.Println(data)
-			fmt.Println(id)
 			stackTraces = parseStackTrace(lines[1 : numLength-2])
-			mu.Unlock()
 
 			// goroutine1はmain goroutineなので親goroutineの情報が含まれないのでスキップ
 			if id != 1 {
