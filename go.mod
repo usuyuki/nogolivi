@@ -1,6 +1,6 @@
 module github.com/usuyuki/nogolivi
 
-go 1.21rc2
+go 1.21
 
 require (
 	github.com/bayashi/go-proptree v0.3.0
